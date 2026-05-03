@@ -6,7 +6,7 @@
 #define MAX_CARDS 10
 
 enum options {
-	CREATE = 1, PRINT, QUIT
+	CREATE = 1, STUDY, PRINT, QUIT
 };
 
 typedef struct Flashcard {
@@ -39,15 +39,31 @@ void create_flashcard(all_flashcards *flashcards) {
 
 // TODO: This function should be a study_cards() function that uses flip effect
 void print_flashcards(const all_flashcards *flashcards) {
+	if (flashcards->top_of_deck == 0) {
+		puts("Deck is empty. Create your first flashcard!\n");
+		return;
+	}
+
 	for(int i = 0; i < flashcards->top_of_deck; i++) {
 		printf("%s\n", flashcards->cards[i].question);
 		printf("%s\n", flashcards->cards[i].answer);
 	}	
 }
 
+// TODO: Figure out why this doesn't work
+void study_cards(all_flashcards *flashcards) {
+	for(int i = 0; i < flashcards->top_of_deck; i++) {
+		char reveal;
+		printf("%s\n", flashcards->cards[i].question);
+		scanf("%c", &reveal);
+		puts("Press ENTER to flip card");
+		printf("%s\n", flashcards->cards[i].answer);
+	}
+}
+
 void print_menu() {
 	printf("\n---- Main Menu ----\n");
-	printf("[1] Create flashcard\n[2] Print flashcards\n[3] Quit\n\n");
+	printf("[1] Create flashcard\n[2] Study flashcards\n[3] Print flashcards\n[4] Quit\n\n");
 }
 
 int main() {
@@ -62,6 +78,9 @@ int main() {
 		case CREATE:
 			create_flashcard(&flashcards);
 			puts("\nFlashcards created");
+			break;
+		case STUDY:
+			study_cards(&flashcards);
 			break;
 		case PRINT:
 			print_flashcards(&flashcards);
