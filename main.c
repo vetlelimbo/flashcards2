@@ -29,7 +29,16 @@ void create_flashcard(all_flashcards *flashcards) {
 	flashcards->top_of_deck++;
 }
 
+void print_flashcards(const all_flashcards *flashcards) {
+	for(int i = 0; i < flashcards->top_of_deck; i++) {
+		printf("%s\n", flashcards->cards[i].question);
+		printf("%s\n", flashcards->cards[i].answer);
+	}	
+}
+
 int main() {
 	all_flashcards flashcards = {0};
+	create_flashcard(&flashcards);
+	print_flashcards(&flashcards);
 	return EXIT_SUCCESS;
 }
