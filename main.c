@@ -6,6 +6,7 @@
 #define MAX_CARDS 10
 #define QUESTION_BUFFER 100
 #define ANSWER_BUFFER 100
+#define OPTION_BUFFER 10
 
 enum options {
 	CREATE = 1, STUDY, PRINT, QUIT
@@ -59,7 +60,7 @@ void study_cards(all_flashcards *flashcards) {
 
 void print_menu() {
 	printf("\n---- Main Menu ----\n");
-	printf("[1] Create flashcard\n[2] Study flashcards\n[3] Print flashcards\n[4] Quit\n\n");
+	printf("create | quit\n");
 }
 
 int main() {
@@ -67,27 +68,17 @@ int main() {
 
 	while(true) {
 		print_menu();
-		int option;
-		scanf("%d", &option);
-
-		switch(option) {
-		case CREATE:
+		char user_option[OPTION_BUFFER];
+		fgets(user_option, OPTION_BUFFER, stdin);
+		user_option[strlen(user_option) - 1] = '\0';
+		
+		if (!strcmp("create", user_option)) {
 			create_flashcard(&flashcards);
-			puts("\nFlashcards created");
+			printf("Flashcard created.\n");
+		} else if(!strcmp("quit", user_option)) {
+			printf("Quitting.\n");
 			break;
-		case STUDY:
-			study_cards(&flashcards);
-			break;
-		case PRINT:
-			print_flashcards(&flashcards);
-			break;
-		case QUIT:
-			break;
-		default:
-			printf("%d is not a valid option.\n");
 		}
-
-		if (option == '3') break;
 	}
 
 	return EXIT_SUCCESS;
