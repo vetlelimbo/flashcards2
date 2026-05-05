@@ -36,6 +36,11 @@ void create_flashcard(all_flashcards *flashcards) {
 
 // TODO: This function should be a study_cards() function that uses flip effect
 void print_flashcards(const all_flashcards *flashcards) {
+	if (flashcards->top_of_deck == 0) {
+		puts("Cannot print empty deck");
+		return;
+	}
+
 	for(int i = 0; i < flashcards->top_of_deck; i++) {
 		printf("%s\n", flashcards->cards[i].question);
 		printf("%s\n", flashcards->cards[i].answer);
@@ -50,17 +55,16 @@ void study_cards(all_flashcards *flashcards) {
 	}
 
 	for(int i = 0; i < flashcards->top_of_deck; i++) {
-		char reveal;
 		printf("%s\n", flashcards->cards[i].question);
-		scanf("%c", &reveal);
 		puts("Press ENTER to flip card");
+		getchar();
 		printf("%s\n", flashcards->cards[i].answer);
 	}
 }
 
 void print_menu() {
 	printf("\n---- Main Menu ----\n");
-	printf("create | quit\n");
+	printf("create | study | print | quit\n");
 }
 
 int main() {
@@ -75,8 +79,12 @@ int main() {
 		if (!strcmp("create", user_option)) {
 			create_flashcard(&flashcards);
 			printf("Flashcard created.\n");
-		} else if(!strcmp("quit", user_option)) {
-			printf("Quitting.\n");
+		} else if (!strcmp("study", user_option)){
+			study_cards(&flashcards);	
+		} else if (!strcmp("print", user_option)) {
+			print_flashcards(&flashcards);
+		} else if (!strcmp("quit", user_option)) {
+			puts("Quitting.");
 			break;
 		}
 	}
