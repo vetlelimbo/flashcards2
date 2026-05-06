@@ -34,10 +34,27 @@ hiragana hiragana_alphabet[1][49] =
 	}
 };
 
+void print_menu() {
+	printf("\n-- Study --\n");
+	printf("- Hiragana\n");
+	printf("- Quit\n>> ");
+}
+
 
 int main() {
-	for(int i = 0; i < 49; i++) {
-		printf("%s ", hiragana_alphabet[0][i].jpn_char);
+	while(true) {
+		char user_option[10];
+		print_menu();	
+		fgets(user_option, 10, stdin);
+		user_option[strlen(user_option) - 1] = '\0';
+
+		if (!strcmp("Hiragana", user_option)) {
+			puts("Studying hiragana");
+		} else if (!strcmp("Quit", user_option)) {
+			puts("Quitting.");
+			break;
+		}
+		
 	}
 
 	return EXIT_SUCCESS;
