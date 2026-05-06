@@ -3,90 +3,41 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_CARDS 10
-#define QUESTION_BUFFER 100
-#define ANSWER_BUFFER 100
-#define OPTION_BUFFER 10
+typedef struct {
+	char jpn_char[5];
+	char eng_char[5];
+} hiragana;
 
-enum options {
-	CREATE = 1, STUDY, PRINT, QUIT
+char *students[3][3] = {
+	{"Harry", "Ron", "Hermoine"}, 
+	{"Luna", "Cho", "Flitwick"},
+	{"Draco", "Krab", "Goyle"}
+
 };
 
-typedef struct Flashcard {
-	char question[QUESTION_BUFFER];
-	char answer[ANSWER_BUFFER];
-} flashcard;
-
-typedef struct All_Flashcards {
-	int top_of_deck;
-	flashcard cards[MAX_CARDS];
-} all_flashcards;
-
-void create_flashcard(all_flashcards *flashcards) {
-	// TODO: This should take in input from user. Read entire line
-	flashcard new_flashcard;
-	printf("Enter question: ");
-	fgets(new_flashcard.question, QUESTION_BUFFER, stdin);
-	printf("Enter answer: ");
-	fgets(new_flashcard.answer, ANSWER_BUFFER, stdin);
-
-	flashcards->cards[flashcards->top_of_deck] = new_flashcard;
-	flashcards->top_of_deck++;
-}
-
-// TODO: This function should be a study_cards() function that uses flip effect
-void print_flashcards(const all_flashcards *flashcards) {
-	if (flashcards->top_of_deck == 0) {
-		puts("Cannot print empty deck");
-		return;
+hiragana hiragana_alphabet[1][49] = 
+{
+	{
+		{"\u3042", "A"}, {"\u3044", "I"}, {"\u3046", "U"}, {"\u3048", "E"},
+		{"\u304A", "O"}, {"\u304b", "KA"}, {"\u304d", "KI"}, {"\u304f", "KU"},
+		{"\u3051", "KE"}, {"\u3053", "KO"}, {"\u3055", "SA"}, {"\u3057", "SHI"},
+		{"\u3059", "SU"}, {"\u305b", "SE"}, {"\u305d", "SO"}, {"\u305f", "TA"},
+		{"\u3061", "CHI"}, {"\u3064", "TSU"}, {"\u3066", "TE"}, {"\u3068", "TO"},
+		{"\u306a", "NA"}, {"\u306b", "NI"}, {"\u306C", "NU"}, {"\u306d", "NE"},
+		{"\u306e", "NO"}, {"\u306f", "HA"}, {"\u3072", "HI"}, {"\u3075", "HU"},
+		{"\u3078", "HE"}, {"\u307b", "HO"}, {"\u307e", "MA"}, {"\u307f", "MI"},
+		{"\u3080", "MU"}, {"\u3081", "ME"}, {"\u3082", "MO"}, {"\u3048", "YA"},
+		{"\u3068", "YU"}, {"\u3088", "YO"}, {"\u3089", "RA"}, {"\u308A", "RI"},
+		{"\u308b", "RU"}, {"\u308c", "RE"}, {"\u308d", "RO"}, {"\u308f", "WA"},
+		{"\u3090", "WI"}, {"\u3091", "WE"}, {"\u3092", "WO"}, {"\u3093", "N"},
+		{"\u3094", "VU"}	
 	}
+};
 
-	for(int i = 0; i < flashcards->top_of_deck; i++) {
-		printf("%s\n", flashcards->cards[i].question);
-		printf("%s\n", flashcards->cards[i].answer);
-	}	
-}
-
-// TODO: Figure out why this doesn't work
-void study_cards(all_flashcards *flashcards) {
-	if (flashcards->top_of_deck == 0) {
-		puts("Deck is empty. Create your first flashcard!\n");
-		return;
-	}
-
-	for(int i = 0; i < flashcards->top_of_deck; i++) {
-		printf("%s\n", flashcards->cards[i].question);
-		puts("Press ENTER to flip card");
-		getchar();
-		printf("%s\n", flashcards->cards[i].answer);
-	}
-}
-
-void print_menu() {
-	printf("\n---- Main Menu ----\n");
-	printf("create | study | print | quit\n");
-}
 
 int main() {
-	all_flashcards flashcards = {0};
-
-	while(true) {
-		print_menu();
-		char user_option[OPTION_BUFFER];
-		fgets(user_option, OPTION_BUFFER, stdin);
-		user_option[strlen(user_option) - 1] = '\0';
-		
-		if (!strcmp("create", user_option)) {
-			create_flashcard(&flashcards);
-			printf("Flashcard created.\n");
-		} else if (!strcmp("study", user_option)){
-			study_cards(&flashcards);	
-		} else if (!strcmp("print", user_option)) {
-			print_flashcards(&flashcards);
-		} else if (!strcmp("quit", user_option)) {
-			puts("Quitting.");
-			break;
-		}
+	for(int i = 0; i < 49; i++) {
+		printf("%s ", hiragana_alphabet[0][i].jpn_char);
 	}
 
 	return EXIT_SUCCESS;
