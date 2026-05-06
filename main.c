@@ -40,16 +40,39 @@ void print_menu() {
 	printf("- Quit\n>> ");
 }
 
+void print_hiragana_options() {
+	printf("\n-- Hiragana --\n");
+	printf("[1] Core\n[2] Back\n\n>> ");
+}
+
+void study_hiragana() {
+	while(true) {
+		print_hiragana_options();
+		char option = getc(stdin);	
+		switch(option) {
+			case '1':
+				//hiragana_core();
+				break;
+			case '2':
+				return;
+			default:
+				printf("%c is not a valid option.", option);
+		}
+	}	
+}
+
 
 int main() {
 	while(true) {
 		char user_option[10];
 		print_menu();	
 		fgets(user_option, 10, stdin);
+		
+		// remove the '\n' that fgets appends to input stream
 		user_option[strlen(user_option) - 1] = '\0';
 
 		if (!strcmp("Hiragana", user_option)) {
-			puts("Studying hiragana");
+			study_hiragana();
 		} else if (!strcmp("Quit", user_option)) {
 			puts("Quitting.");
 			break;
