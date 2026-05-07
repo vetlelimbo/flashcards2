@@ -8,13 +8,6 @@ typedef struct {
 	char eng_char[5];
 } hiragana;
 
-char *students[3][3] = {
-	{"Harry", "Ron", "Hermoine"}, 
-	{"Luna", "Cho", "Flitwick"},
-	{"Draco", "Krab", "Goyle"}
-
-};
-
 hiragana hiragana_alphabet[1][49] = 
 {
 	{
@@ -37,7 +30,7 @@ hiragana hiragana_alphabet[1][49] =
 void print_menu() {
 	printf("\n-- Study --\n");
 	printf("- Hiragana\n");
-	printf("- Quit\n>> ");
+	printf("- Quit\n\n>> ");
 }
 
 void print_hiragana_options() {
@@ -48,7 +41,8 @@ void print_hiragana_options() {
 void study_hiragana() {
 	while(true) {
 		print_hiragana_options();
-		char option = getc(stdin);	
+		char option = getchar();	
+
 		switch(option) {
 			case '1':
 				//hiragana_core();
