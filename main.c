@@ -38,16 +38,27 @@ void print_hiragana_options() {
 	printf("[1] Core\n[2] Back\n\n>> ");
 }
 
+void hiragana_core() {
+	for(int i = 0; i < 49; i++) {
+		printf("%s\n", hiragana_alphabet[0][i].jpn_char);
+		printf("Press enter to reveal answer");
+		fgetc(stdin);
+		printf("%s\n", hiragana_alphabet[0][i].eng_char);
+	}		
+}
+
 void study_hiragana() {
 	while(true) {
 		print_hiragana_options();
-		char option = getchar();	
+		int option;
+		scanf("%d", &option);
+		fgetc(stdin); // clear stdin buffer
 
 		switch(option) {
-			case '1':
-				//hiragana_core();
+			case 1:
+				hiragana_core();
 				break;
-			case '2':
+			case 2:
 				return;
 			default:
 				printf("%c is not a valid option.", option);
